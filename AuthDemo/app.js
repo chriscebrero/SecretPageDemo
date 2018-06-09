@@ -10,13 +10,15 @@ var User = require("./models/user");
 app.use(require("express-session")({
     secret: "Rose",
     resave: false,
-    saveUnitialized: false
+    saveUninitialized: false
 }));
 
 mongoose.connect("mongodb://localhost/auth_demo_app");
 app.set("view engine", "ejs");
 app.use(passport.initialize());
 app.use(passport.session());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
 app.get("/", function(req, res){
