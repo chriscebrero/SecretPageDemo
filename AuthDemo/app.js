@@ -54,8 +54,14 @@ app.post("/register", function(req, res){
 
 //LOGIN Routes
 // render login form
-app.get("/login", function(req, res){
-    res.render("login");
+app.get("/login", passport.authenticate("local", {
+    successRedirect: "/secret",
+    failureRedirect: "/login",
+}), function(req, res){
+});
+
+app.post("/login", function(req, res){
+    
 })
 
 app.listen(process.env.PORT, process.env.IP, function(){
